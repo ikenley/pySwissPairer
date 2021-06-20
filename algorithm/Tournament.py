@@ -1,4 +1,3 @@
-import random
 from typing import List
 
 from algorithm.Player import Player
@@ -26,9 +25,6 @@ class Tournament:
 
     def setMaxRounds(self, maxRounds: int) -> None:
         self.mMaxRounds = maxRounds
-
-    def randomizePlayers(self) -> None:
-        random.shuffle(self.mPlayers)
 
     def getRounds(self) -> List[Round]:
         return self.mRounds

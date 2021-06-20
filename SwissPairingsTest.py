@@ -46,6 +46,7 @@ class SwissPairingsTest:
         pairing: Pairing
         for pairing in pairings:
             print(pairing.getPairingString())
+        print("")
 
 
 if __name__ == "__main__":
@@ -65,44 +66,27 @@ if __name__ == "__main__":
         tourney.addPlayer(Player("Frank  ", False))
         tourney.addPlayer(Player("George ", False))
         tourney.addPlayer(Player("Henry  ", False))
-        tourney.randomizePlayers()
 
         print("Test " + str(j))
+        print("------\n")
 
+        # For each round
         for i in range(maxRounds):
             print("Round " + str(i+1))
+            print("-------\n")
 
+            # Create and pair the round
             round: Round = tourney.addRound()
             pairings: List[Pairing] = tourney.pairRound()
 
+            # Print the pairings
             SwissPairingsTest.printPairing(pairings)
 
+            # Simulate the round
             SwissPairingsTest.randomlyAssignWinners(pairings)
-
             tourney.commitRound()
 
+            # Print the standings after the simulated round
             SwissPairingsTest.printStandings(round.getPlayers())
 
             print("\n=========================================================\n")
-
-        # pairingList: List[Pairing] = []
-
-        # for i in range(5):
-        #     print("Round " + str(i+1))
-        #     print("")
-        #     players.sort()
-        #     SwissPairingsTest.printStandings(players)
-        #     print("")
-
-        #     if 0 == i:
-        #         pairingList = SwissPairings.pairRoundOne(players)
-        #     else:
-        #         pairingList = SwissPairings.pairTree(players)
-        #     SwissPairingsTest.printPairing(pairingList)
-        #     SwissPairingsTest.randomlyAssignWinners(pairingList)
-
-        #     print("\n=========================================================\n")
-
-        # print("Final")
-        # players.sort
-        # SwissPairingsTest.printStandings(players)

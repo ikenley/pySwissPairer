@@ -1,9 +1,11 @@
 from typing import List
+import json
 
 from algorithm.Player import Player
 from algorithm.Round import Round
 from algorithm.SwissPairings import SwissPairings
 from algorithm.Pairing import Pairing
+from algorithm.pySwissJsonEncoder import pySwissJsonEncoder
 
 
 class Tournament:
@@ -14,8 +16,7 @@ class Tournament:
         self.mPlayers: List[Player] = []
 
     def __str__(self) -> str:
-        return "{{\"mName\": {}, \"mPlayers\": {}, \"mMaxRounds\": {}, \"mRounds\": {} }}" \
-            .format(self.mName, str(self.mPlayers), self.mMaxRounds, str(self.mRounds))
+        return json.dumps(self, cls=pySwissJsonEncoder, indent=2)
 
     def __repr__(self) -> str:
         return self.__str__()
@@ -33,13 +34,11 @@ class Tournament:
         newRound: Round = Round()
         if len(self.mRounds) > 0:
             lastRound: Round = self.mRounds[len(self.mRounds) - 1]
-            player: Player
-            for player in lastRound.getPlayers():
-                newRound.addPlayer(Player(other=player))
+            newRound.addPlayerIds(lastRound.getPlayerIds())
         else:
             player: Player
             for player in self.mPlayers:
-                newRound.addPlayer(Player(other=player))
+                newRound.addPlayerId(player.getId())
         self.mRounds.append(newRound)
         return newRound
 
@@ -47,18 +46,21 @@ class Tournament:
         roundToPair: Round = self.mRounds[len(self.mRounds) - 1]
         if len(self.mRounds) <= 1:
             roundToPair.addPairings(
-                SwissPairings.pairRoundOne(roundToPair.getPlayers()))
+                SwissPairings.pairRoundOne(
+                    self.getPlayersFromIds(roundToPair.getPlayerIds())
+                )
+            )
         else:
             roundToPair.addPairings(
-                SwissPairings.pairTree(roundToPair.getPlayers()))
+                SwissPairings.pairTree(
+                    self.getPlayersFromIds(roundToPair.getPlayerIds())
+                )
+            )
         return roundToPair.getPairings()
 
     def commitRound(self) -> None:
         roundToCommit: Round = self.mRounds[len(self.mRounds) - 1]
         roundToCommit.commitAllPairings()
-
-    def getRounds(self) -> List[Round]:
-        return self.mRounds
 
     def getMaxRounds(self) -> int:
         return self.mMaxRounds
@@ -68,3 +70,14 @@ class Tournament:
 
     def addPlayer(self, player: Player) -> None:
         self.mPlayers.append(player)
+
+    def getPlayersFromIds(self, playerIds: List[int]) -> List[Player]:
+        playerList: List[Player] = []
+        id: int
+        for id in playerIds:
+            player: Player
+            for player in self.mPlayers:
+                if id == player.getId():
+                    playerList.append(player)
+                    break
+        return playerList

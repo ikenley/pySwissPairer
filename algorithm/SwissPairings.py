@@ -7,7 +7,6 @@ from algorithm.PairingTreeNode import PairingTreeNode
 
 
 class SwissPairings:
-
     def pairRoundOne(players: List[Player]) -> List[Pairing]:
         """[summary]
 
@@ -20,9 +19,10 @@ class SwissPairings:
         pairings: List[Pairing] = []
         # Shuffle players, then pair across the table
         random.shuffle(players)
-        for i in range(int(len(players)/2)):
+        for i in range(int(len(players) / 2)):
             pairings.append(
-                Pairing(players[i], players[int(i + (len(players)/2)) % len(players)]))
+                Pairing(players[i], players[int(i + (len(players) / 2)) % len(players)])
+            )
         return pairings
 
     def pairTree(players: List[Player]) -> List[Pairing]:
@@ -53,7 +53,9 @@ class SwissPairings:
 
         return pairings
 
-    def recursivelyFindPairings(parent: PairingTreeNode, players: List[Player], pairings: List[Pairing]) -> bool:
+    def recursivelyFindPairings(
+        parent: PairingTreeNode, players: List[Player], pairings: List[Pairing]
+    ) -> bool:
         """
         For a PairingTreeNode, find all possible child pairs for the player
         with the most points who is unpaired. Then, if there are still unpaired
@@ -78,7 +80,11 @@ class SwissPairings:
         maxPointPlayer: Player = None
         player: Player
         for player in players:
-            if player.getPoints() > maxPoints and parent.isNotPaired(player) and not player.isBye():
+            if (
+                player.getPoints() > maxPoints
+                and parent.isNotPaired(player)
+                and not player.isBye()
+            ):
                 maxPointPlayer = player
                 maxPoints = player.getPoints()
 

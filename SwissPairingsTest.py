@@ -8,7 +8,6 @@ from algorithm.Pairing import Pairing
 
 
 class SwissPairingsTest:
-
     def randomlyAssignWinners(pairings: List[Pairing]) -> None:
         """This simulates a round where each pairing is assigned either a winner/loser, or a draw
 
@@ -18,19 +17,25 @@ class SwissPairingsTest:
         pairing: Pairing
         for pairing in pairings:
             if pairing.getPlayer_0().isBye():
-                pairing.getPlayer_0().addLoss(pairing.getPlayer_1())
-                pairing.getPlayer_1().addWin(pairing.getPlayer_0())
+                pairing.reportMatch(0, 2, 0)
             elif pairing.getPlayer_1().isBye():
-                pairing.getPlayer_0().addWin(pairing.getPlayer_1())
-                pairing.getPlayer_1().addLoss(pairing.getPlayer_0())
+                pairing.reportMatch(2, 0, 0)
             else:
-                outcome: int = random.randint(0, 2)
-                if 0 == outcome:
-                    pairing.reportMatch(1, 0, 0)
-                elif 1 == outcome:
-                    pairing.reportMatch(0, 1, 0)
-                else:
-                    pairing.reportMatch(0, 0, 1)
+                win: int = 0
+                loss: int = 0
+                draw: int = 0
+                for game in range(3):
+                    outcome: int = random.randint(0, 2)
+                    if 0 == outcome:
+                        win = win + 1
+                    elif 1 == outcome:
+                        loss = loss + 1
+                    else:
+                        draw = draw + 1
+
+                    if 2 == win or 2 == loss:
+                        break
+                pairing.reportMatch(win, loss, draw)
 
     def printStandings(players: List[Player]) -> None:
         players.sort(reverse=True)
@@ -72,7 +77,7 @@ if __name__ == "__main__":
 
         # For each round
         for i in range(maxRounds):
-            print("Round " + str(i+1))
+            print("Round " + str(i + 1))
             print("-------\n")
 
             # Create and pair the round
@@ -87,6 +92,10 @@ if __name__ == "__main__":
             tourney.commitRound()
 
             # Print the standings after the simulated round
-            SwissPairingsTest.printStandings(round.getPlayers())
+            SwissPairingsTest.printStandings(
+                tourney.getPlayersFromIds(round.getPlayerIds())
+            )
 
-            print("\n=========================================================\n")
+            print("\n======================================================\n")
+
+        print(tourney)

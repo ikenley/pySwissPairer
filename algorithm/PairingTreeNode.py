@@ -1,7 +1,9 @@
 from typing import List
+import json
 
 from algorithm.Player import Player
 from algorithm.Pairing import Pairing
+from algorithm.pySwissJsonEncoder import pySwissJsonEncoder
 
 
 class PairingTreeNode:
@@ -21,8 +23,7 @@ class PairingTreeNode:
             self.mPairedPlayers.extend(parent.mPairedPlayers)
 
     def __str__(self) -> str:
-        return "{{\"mPairing\": {}, \"mPairedPlayers\": {}, \"mNumPlayers\": {} }}" \
-            .format(str(self.mPairing), str(self.mPairedPlayers), self.mNumPlayers)
+        return json.dumps(self.__dict__, cls=pySwissJsonEncoder, indent=2)
 
     def __repr__(self) -> str:
         return self.__str__()

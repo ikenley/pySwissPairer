@@ -9,7 +9,8 @@ from algorithm.Pairing import Pairing
 
 class SwissPairingsTest:
     def randomlyAssignWinners(pairings: List[Pairing]) -> None:
-        """This simulates a round where each pairing is assigned either a winner/loser, or a draw
+        """This simulates a round where each pairing is assigned either a
+           winner/loser, or a draw
 
         Args:
             pairings (List[Pairing]): The pairings to simulate a round for

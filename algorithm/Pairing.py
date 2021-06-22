@@ -24,10 +24,16 @@ class Pairing:
         if self.getPlayer_0().isBye() or self.getPlayer_1().isBye():
             return sys.maxsize
 
-        return abs(self.getPlayer_0().getPoints() - self.getPlayer_1().getPoints())
+        return abs(
+            self.getPlayer_0().getPoints() - self.getPlayer_1().getPoints()
+        )
 
     def getPairingString(self) -> str:
-        return self.getPlayer_0().getName() + " vs " + self.getPlayer_1().getName()
+        return (
+            self.getPlayer_0().getName()
+            + " vs "
+            + self.getPlayer_1().getName()
+        )
 
     def __str__(self) -> str:
         return json.dumps(self.__dict__, cls=pySwissJsonEncoder, indent=2)
@@ -38,7 +44,9 @@ class Pairing:
     def isReported(self) -> bool:
         return self.mReported
 
-    def reportMatch(self, player_0_wins: int, player_1_wins: int, draws: int) -> None:
+    def reportMatch(
+        self, player_0_wins: int, player_1_wins: int, draws: int
+    ) -> None:
         self.mPlayer_0_gameWins = player_0_wins
         self.mPlayer_1_gameWins = player_1_wins
         self.mGameDraws = draws
@@ -72,10 +80,16 @@ class Pairing:
             self.getPlayer_1().removeDraw(self.getPlayer_0())
 
     def player_0_won(self) -> bool:
-        return self.mReported and self.mPlayer_0_gameWins > self.mPlayer_1_gameWins
+        return (
+            self.mReported
+            and self.mPlayer_0_gameWins > self.mPlayer_1_gameWins
+        )
 
     def player_1_won(self) -> bool:
-        return self.mReported and self.mPlayer_1_gameWins > self.mPlayer_0_gameWins
+        return (
+            self.mReported
+            and self.mPlayer_1_gameWins > self.mPlayer_0_gameWins
+        )
 
     def getPlayer_0_wins(self) -> int:
         return self.mPlayer_0_gameWins

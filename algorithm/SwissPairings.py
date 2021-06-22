@@ -21,7 +21,10 @@ class SwissPairings:
         random.shuffle(players)
         for i in range(int(len(players) / 2)):
             pairings.append(
-                Pairing(players[i], players[int(i + (len(players) / 2)) % len(players)])
+                Pairing(
+                    players[i],
+                    players[int(i + (len(players) / 2)) % len(players)],
+                )
             )
         return pairings
 
@@ -29,9 +32,9 @@ class SwissPairings:
         """
         Given a list of players, use Swiss Pairing to pair them off, starting
         with the player with the most points and working down recursively.
-        This does it's best to pair high ranking players with other high ranking
-        players. It will not pair players on the same team against each other,
-        nor will it pair players that have already played.
+        This does it's best to pair high ranking players with other high
+        ranking players. It will not pair players on the same team against each
+        other, nor will it pair players that have already played.
 
         Args:
             players (List[Player]): A list of players to pair
@@ -64,13 +67,15 @@ class SwissPairings:
         Eventually there will be no more unpaired players, i.e. it's at the
         bottom of the search tree. When it first hit bottom, that path down the
         tree is the round's pairings. Because it always pairs starting with the
-        player with the most points, and picks the pair with the smallest points
-        delta, the pairings should be optimal by Wizard's rules.
+        player with the most points, and picks the pair with the smallest
+        points delta, the pairings should be optimal by Wizard's rules.
 
         Args:
-            parent (PairingTreeNode): The parent node for this node. It knows what players have already been paired down this branch.
+            parent (PairingTreeNode): The parent node for this node. It knows
+                         what players have already been paired down this branch
             players (List[Player]): All of the players in the tournament
-            pairings (List[Pairing]): The pairings for the round are placed in this ArrayList for returning once they are found
+            pairings (List[Pairing]): The pairings for the round are placed in
+                         this ArrayList for returning once they are found
         Returns:
             bool: true if the search is over, false if it must continue
         """
@@ -95,7 +100,9 @@ class SwissPairings:
         # Find all potential matches for that player
         tmpPairings: List[Pairing] = []
         for player in players:
-            if player.canPairAgainst(maxPointPlayer) and parent.isNotPaired(player):
+            if player.canPairAgainst(maxPointPlayer) and parent.isNotPaired(
+                player
+            ):
                 tmpPairings.append(Pairing(maxPointPlayer, player))
                 # print(Pairing(maxPointPlayer, player))
 
@@ -104,7 +111,8 @@ class SwissPairings:
             # No pairings, stop searching
             return False
         elif 1 < numPairings:
-            # More than one pairing, Sort the pairings by how closely the player's points match
+            # More than one pairing, Sort the pairings by how closely the
+            # player's points match
             tmpPairings.sort()
 
         # Add all pairings to the search tree
@@ -122,8 +130,11 @@ class SwissPairings:
                 return True
             else:
                 # If there are more players to pair, recurse and find the pairs
-                if SwissPairings.recursivelyFindPairings(child, players, pairings):
-                    # Add this pair to the pairings and keep exiting from the recursion
+                if SwissPairings.recursivelyFindPairings(
+                    child, players, pairings
+                ):
+                    # Add this pair to the pairings and keep exiting from the
+                    # recursion
                     pairings.insert(0, child.getPairing())
                     return True
 

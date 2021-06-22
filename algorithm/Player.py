@@ -54,7 +54,9 @@ class Player:
         return (self.mMatchWins * 3) + self.mMatchDraws
 
     def canPairAgainst(self, other: "Player") -> None:
-        return (self.mUuid != other.mUuid) and (other.mUuid not in self.mPlayedAgainst)
+        return (self.mUuid != other.mUuid) and (
+            other.mUuid not in self.mPlayedAgainst
+        )
 
     def isBye(self) -> bool:
         return self.mIsBye

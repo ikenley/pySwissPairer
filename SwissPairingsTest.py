@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
     for j in range(1):
 
-        maxRounds: int = 3
+        maxRounds: int = 5
 
         tourney: Tournament = Tournament()
         tourney.setName("Test {}".format(j))
@@ -75,6 +75,10 @@ if __name__ == "__main__":
 
         print("Test " + str(j))
         print("------\n")
+
+        gvFile = open("gv.txt", "w")  # write mode
+        gvFile.write("digraph tourney {\n\n")
+        gvFile.close()
 
         # For each round
         for i in range(maxRounds):
@@ -99,4 +103,7 @@ if __name__ == "__main__":
 
             print("\n======================================================\n")
 
-        print(tourney)
+        # print(tourney)
+        gvFile = open("gv.txt", "a")  # append mode
+        gvFile.write("}")
+        gvFile.close()

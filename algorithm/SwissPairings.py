@@ -26,9 +26,38 @@ class SwissPairings:
                     players[int(i + (len(players) / 2)) % len(players)],
                 )
             )
+
+        gvFile = open("gv.txt", "a")  # append mode
+
+        gvFile.write("  subgraph cluster_1 {\n")
+        gvFile.write('    _0[label="Round 1"]\n')
+        pairing: Pairing
+        lastHash: int = 0
+        for pairing in pairings:
+
+            thisHash: int = (
+                pairing.getPlayer_0().getId() + pairing.getPlayer_1().getId()
+            )
+
+            graphvizStr: str = '    _{}[label="'.format(thisHash)
+            graphvizStr = graphvizStr + "{} ({}) vs {} ({})".format(
+                pairing.getPlayer_0().getName(),
+                pairing.getPlayer_0().getPoints(),
+                pairing.getPlayer_1().getName(),
+                pairing.getPlayer_1().getPoints(),
+            )
+            graphvizStr = graphvizStr + '"]\n'
+            gvFile.write(graphvizStr)
+
+            gvFile.write("    _{} -> _{}\n".format(lastHash, thisHash))
+            lastHash = thisHash
+
+        gvFile.write("}\n\n")
+        gvFile.close()
+
         return pairings
 
-    def pairTree(players: List[Player]) -> List[Pairing]:
+    def pairTree(players: List[Player], roundNum: int) -> List[Pairing]:
         """
         Given a list of players, use Swiss Pairing to pair them off, starting
         with the player with the most points and working down recursively.
@@ -46,18 +75,31 @@ class SwissPairings:
         # Randomize the player order for pairing
         random.shuffle(players)
 
+        gvFile = open("gv.txt", "a")  # append mode
+        gvFile.write("  subgraph cluster_{} {{\n".format(roundNum))
+        gvFile.close()
+
         # Make a root node for the search tree
         pairings: List[Pairing] = []
-        root: PairingTreeNode = PairingTreeNode(None, None)
+        root: PairingTreeNode = PairingTreeNode(None, None, roundNum)
         root.setNumPlayers(len(players))
 
         # Recursively search for the best pairing
-        SwissPairings.recursivelyFindPairings(root, players, pairings)
+        SwissPairings.recursivelyFindPairings(
+            root, players, pairings, roundNum
+        )
+
+        gvFile = open("gv.txt", "a")  # append mode
+        gvFile.write("  }\n\n")
+        gvFile.close()
 
         return pairings
 
     def recursivelyFindPairings(
-        parent: PairingTreeNode, players: List[Player], pairings: List[Pairing]
+        parent: PairingTreeNode,
+        players: List[Player],
+        pairings: List[Pairing],
+        roundNum: int,
     ) -> bool:
         """
         For a PairingTreeNode, find all possible child pairs for the player
@@ -119,7 +161,7 @@ class SwissPairings:
         pairing: Pairing
         for pairing in tmpPairings:
             # Add the pair to the search tree
-            child: PairingTreeNode = PairingTreeNode(parent, pairing)
+            child: PairingTreeNode = PairingTreeNode(parent, pairing, roundNum)
 
             # Check if the search can continue
             if not child.canHaveChildren():
@@ -131,7 +173,7 @@ class SwissPairings:
             else:
                 # If there are more players to pair, recurse and find the pairs
                 if SwissPairings.recursivelyFindPairings(
-                    child, players, pairings
+                    child, players, pairings, roundNum
                 ):
                     # Add this pair to the pairings and keep exiting from the
                     # recursion

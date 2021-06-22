@@ -31,7 +31,7 @@ class Tournament:
         return self.mRounds
 
     def addRound(self) -> Round:
-        newRound: Round = Round()
+        newRound: Round = Round(len(self.mRounds) + 1)
         if len(self.mRounds) > 0:
             lastRound: Round = self.mRounds[len(self.mRounds) - 1]
             newRound.addPlayerIds(lastRound.getPlayerIds())
@@ -53,7 +53,8 @@ class Tournament:
         else:
             roundToPair.addPairings(
                 SwissPairings.pairTree(
-                    self.getPlayersFromIds(roundToPair.getPlayerIds())
+                    self.getPlayersFromIds(roundToPair.getPlayerIds()),
+                    roundToPair.mRoundNum,
                 )
             )
         return roundToPair.getPairings()

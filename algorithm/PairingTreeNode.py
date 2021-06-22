@@ -7,7 +7,9 @@ from algorithm.pySwissJsonEncoder import pySwissJsonEncoder
 
 
 class PairingTreeNode:
-    def __init__(self, parent: "PairingTreeNode", pairing: Pairing) -> None:
+    def __init__(
+        self, parent: "PairingTreeNode", pairing: Pairing, roundNum: int
+    ) -> None:
         self.mPairing: Pairing = pairing
         self.mPairedPlayers: List[Player] = []
         self.mNumPlayers: int = 0
@@ -21,6 +23,43 @@ class PairingTreeNode:
         if parent is not None:
             self.mNumPlayers = parent.mNumPlayers
             self.mPairedPlayers.extend(parent.mPairedPlayers)
+
+        gvFile = open("gv.txt", "a")  # append mode
+
+        graphvizStr: str = '    {}[label="'.format(self.getNodeLabel(roundNum))
+        if pairing is not None:
+            graphvizStr = graphvizStr + "{} ({}) vs {} ({})".format(
+                self.mPairing.getPlayer_0().getName(),
+                self.mPairing.getPlayer_0().getPoints(),
+                self.mPairing.getPlayer_1().getName(),
+                self.mPairing.getPlayer_1().getPoints(),
+            )
+        else:
+            graphvizStr = graphvizStr + "Round " + str(roundNum)
+        graphvizStr = graphvizStr + '"]\n'
+        gvFile.write(graphvizStr)
+
+        if parent is not None:
+            gvFile.write(
+                "    {} -> {}\n".format(
+                    parent.getNodeLabel(roundNum), self.getNodeLabel(roundNum)
+                )
+            )
+
+        gvFile.close()
+
+    def getNodeLabel(self, roundNum: int) -> str:
+        if self.mPairing is not None:
+            nodeHash: int = 0
+            paired: Player
+            for paired in self.mPairedPlayers:
+                nodeHash = nodeHash + (17 * paired.getId())
+
+            nodeHash = nodeHash + self.mPairing.getPlayer_0().getId()
+            nodeHash = nodeHash + self.mPairing.getPlayer_1().getId()
+
+            return "_{}".format(nodeHash)
+        return "_{}".format(roundNum)
 
     def __str__(self) -> str:
         return json.dumps(self.__dict__, cls=pySwissJsonEncoder, indent=2)

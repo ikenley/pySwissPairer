@@ -7,10 +7,11 @@ from algorithm.pySwissJsonEncoder import pySwissJsonEncoder
 
 
 class Round:
-    def __init__(self) -> None:
+    def __init__(self, roundNum: int) -> None:
         self.mPlayerIds: List[int] = []
         self.mPairings: List[Pairing] = []
         self.mPairingsCommitted: bool = False
+        self.mRoundNum = roundNum
 
     def __str__(self) -> str:
         return json.dumps(self.__dict__, cls=pySwissJsonEncoder, indent=2)

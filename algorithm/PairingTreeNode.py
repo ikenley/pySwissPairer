@@ -8,7 +8,11 @@ from algorithm.pySwissJsonEncoder import pySwissJsonEncoder
 
 class PairingTreeNode:
     def __init__(
-        self, parent: "PairingTreeNode", pairing: Pairing, roundNum: int
+        self,
+        parent: "PairingTreeNode",
+        pairing: Pairing,
+        roundNum: int,
+        printGraphviz: bool = False,
     ) -> None:
         self.mPairing: Pairing = pairing
         self.mPairedPlayers: List[Player] = []
@@ -24,39 +28,50 @@ class PairingTreeNode:
             self.mNumPlayers = parent.mNumPlayers
             self.mPairedPlayers.extend(parent.mPairedPlayers)
 
-        gvFile = open("gv.txt", "a")  # append mode
+        if printGraphviz:
+            gvFile = open("gv.txt", "a")  # append mode
 
-        graphvizStr: str = '    {}[label="'.format(self.getNodeLabel(roundNum))
-        if pairing is not None:
-            graphvizStr = graphvizStr + "{} ({}) vs {} ({})".format(
-                self.mPairing.getPlayer_0().getName(),
-                self.mPairing.getPlayer_0().getPoints(),
-                self.mPairing.getPlayer_1().getName(),
-                self.mPairing.getPlayer_1().getPoints(),
+            graphvizStr: str = '    {}[label="'.format(
+                self.getNodeLabel(roundNum)
             )
-        else:
-            graphvizStr = graphvizStr + "Round " + str(roundNum)
-        graphvizStr = graphvizStr + '"]\n'
-        gvFile.write(graphvizStr)
-
-        if parent is not None:
-            gvFile.write(
-                "    {} -> {}\n".format(
-                    parent.getNodeLabel(roundNum), self.getNodeLabel(roundNum)
+            if pairing is not None:
+                graphvizStr = graphvizStr + "{} ({}) vs {} ({})".format(
+                    self.mPairing.getPlayer_0().getName(),
+                    self.mPairing.getPlayer_0().getPoints(),
+                    self.mPairing.getPlayer_1().getName(),
+                    self.mPairing.getPlayer_1().getPoints(),
                 )
-            )
+            else:
+                graphvizStr = graphvizStr + "Round " + str(roundNum)
+            graphvizStr = graphvizStr + '"]\n'
+            gvFile.write(graphvizStr)
 
-        gvFile.close()
+            if parent is not None:
+                gvFile.write(
+                    "    {} -> {}\n".format(
+                        parent.getNodeLabel(roundNum),
+                        self.getNodeLabel(roundNum),
+                    )
+                )
+
+            gvFile.close()
 
     def getNodeLabel(self, roundNum: int) -> str:
         if self.mPairing is not None:
             nodeHash: int = 0
             paired: Player
             for paired in self.mPairedPlayers:
-                nodeHash = nodeHash + (17 * paired.getId())
+                nodeHash = (nodeHash << 5) ^ paired.getId()
+                nodeHash = (nodeHash << 5) ^ paired.getPoints()
 
-            nodeHash = nodeHash + self.mPairing.getPlayer_0().getId()
-            nodeHash = nodeHash + self.mPairing.getPlayer_1().getId()
+            nodeHash = (nodeHash << 5) ^ self.mPairing.getPlayer_0().getId()
+            nodeHash = (
+                nodeHash << 5
+            ) ^ self.mPairing.getPlayer_0().getPoints()
+            nodeHash = (nodeHash << 5) ^ self.mPairing.getPlayer_1().getId()
+            nodeHash = (
+                nodeHash << 5
+            ) ^ self.mPairing.getPlayer_1().getPoints()
 
             return "_{}".format(nodeHash)
         return "_{}".format(roundNum)

@@ -59,26 +59,24 @@ if __name__ == "__main__":
 
     for j in range(1):
 
-        maxRounds: int = 5
+        maxRounds: int = 12
+        maxPlayers: int = 32
 
         tourney: Tournament = Tournament()
         tourney.setName("Test {}".format(j))
         tourney.setMaxRounds(maxRounds)
-        tourney.addPlayer(Player("Adam   ", False))
-        tourney.addPlayer(Player("Bob    ", False))
-        tourney.addPlayer(Player("Charlie", False))
-        tourney.addPlayer(Player("Dan    ", False))
-        tourney.addPlayer(Player("Edward ", False))
-        tourney.addPlayer(Player("Frank  ", False))
-        tourney.addPlayer(Player("George ", False))
-        tourney.addPlayer(Player("Henry  ", False))
+        for i in range(maxPlayers):
+            tourney.addPlayer(Player("Player {}".format(i), False))
 
         print("Test " + str(j))
         print("------\n")
 
-        gvFile = open("gv.txt", "w")  # write mode
-        gvFile.write("digraph tourney {\n\n")
-        gvFile.close()
+        printGraphviz: bool = True
+
+        if printGraphviz:
+            gvFile = open("gv.txt", "w")  # write mode
+            gvFile.write("digraph tourney {\n\n")
+            gvFile.close()
 
         # For each round
         for i in range(maxRounds):
@@ -87,7 +85,9 @@ if __name__ == "__main__":
 
             # Create and pair the round
             round: Round = tourney.addRound()
-            pairings: List[Pairing] = tourney.pairRound()
+            pairings: List[Pairing] = tourney.pairRound(
+                printGraphviz=printGraphviz
+            )
 
             # Print the pairings
             SwissPairingsTest.printPairing(pairings)
@@ -104,6 +104,7 @@ if __name__ == "__main__":
             print("\n======================================================\n")
 
         # print(tourney)
-        gvFile = open("gv.txt", "a")  # append mode
-        gvFile.write("}")
-        gvFile.close()
+        if printGraphviz:
+            gvFile = open("gv.txt", "a")  # append mode
+            gvFile.write("}")
+            gvFile.close()

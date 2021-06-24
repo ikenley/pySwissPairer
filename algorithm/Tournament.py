@@ -42,12 +42,13 @@ class Tournament:
         self.mRounds.append(newRound)
         return newRound
 
-    def pairRound(self) -> List[Pairing]:
+    def pairRound(self, printGraphviz: bool = False) -> List[Pairing]:
         roundToPair: Round = self.mRounds[len(self.mRounds) - 1]
         if len(self.mRounds) <= 1:
             roundToPair.addPairings(
                 SwissPairings.pairRoundOne(
-                    self.getPlayersFromIds(roundToPair.getPlayerIds())
+                    self.getPlayersFromIds(roundToPair.getPlayerIds()),
+                    printGraphviz=printGraphviz,
                 )
             )
         else:
@@ -55,6 +56,7 @@ class Tournament:
                 SwissPairings.pairTree(
                     self.getPlayersFromIds(roundToPair.getPlayerIds()),
                     roundToPair.mRoundNum,
+                    printGraphviz=printGraphviz,
                 )
             )
         return roundToPair.getPairings()

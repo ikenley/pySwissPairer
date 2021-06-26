@@ -10,13 +10,13 @@ class pySwissJsonEncoder(JSONEncoder):
         if isinstance(o, Tournament):
             playerDicts: List[Dict] = []
             player: Player
-            for player in o.mPlayers:
+            for player in o.__Players:
                 playerDicts.append(player.__dict__)
             tourneyDict: Dict = {}
             tourneyDict["mPlayers"] = playerDicts
-            tourneyDict["mMaxRounds"] = o.mMaxRounds
-            tourneyDict["mName"] = o.mName
-            tourneyDict["mRounds"] = o.mRounds
+            tourneyDict["mMaxRounds"] = o.__MaxRounds
+            tourneyDict["mName"] = o.__Name
+            tourneyDict["mRounds"] = o.__Rounds
             return tourneyDict
         if isinstance(o, Player):
             return o.getId()

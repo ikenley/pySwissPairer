@@ -25,7 +25,7 @@ class SwissPairingsTest:
                 win: int = 0
                 loss: int = 0
                 draw: int = 0
-                for game in range(3):
+                for _ in range(3):
                     outcome: int = random.randint(0, 2)
                     if 0 == outcome:
                         win = win + 1
@@ -94,6 +94,8 @@ if __name__ == "__main__":
 
             # Simulate the round
             SwissPairingsTest.randomlyAssignWinners(pairings)
+            tourney.commitRound()
+            tourney.uncommitRound()
             tourney.commitRound()
 
             # Print the standings after the simulated round

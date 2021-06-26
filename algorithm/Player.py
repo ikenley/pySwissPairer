@@ -7,66 +7,69 @@ from algorithm.pySwissJsonEncoder import pySwissJsonEncoder
 
 class Player:
     def __init__(self, name: str, isBye: bool) -> None:
-        self.mUuid: int = uuid.uuid4().int
-        self.mName: str = name
-        self.mMatchWins: int = 0
-        self.mMatchLosses: int = 0
-        self.mMatchDraws: int = 0
+        self.__Uuid: int = uuid.uuid4().int
+        self.__Name: str = name
+        self.__MatchWins: int = 0
+        self.__MatchLosses: int = 0
+        self.__MatchDraws: int = 0
 
-        self.mPlayedAgainst: List[int] = []
-        self.mIsBye: bool = isBye
+        self.__PlayedAgainst: List[int] = []
+        self.__IsBye: bool = isBye
 
     # Win modifiers
 
     def addWin(self, other: "Player") -> None:
-        self.mMatchWins = self.mMatchWins + 1
-        if other.mUuid not in self.mPlayedAgainst:
-            self.mPlayedAgainst.append(other.mUuid)
+        self.__MatchWins = self.__MatchWins + 1
+        if other.getId() not in self.__PlayedAgainst:
+            self.__PlayedAgainst.append(other.getId())
 
     def addDraw(self, other: "Player") -> None:
-        self.mMatchDraws = self.mMatchDraws + 1
-        if other.mUuid not in self.mPlayedAgainst:
-            self.mPlayedAgainst.append(other.mUuid)
+        self.__MatchDraws = self.__MatchDraws + 1
+        if other.getId() not in self.__PlayedAgainst:
+            self.__PlayedAgainst.append(other.getId())
 
     def addLoss(self, other: "Player") -> None:
-        self.mMatchLosses = self.mMatchLosses + 1
-        if other.mUuid not in self.mPlayedAgainst:
-            self.mPlayedAgainst.append(other.mUuid)
+        self.__MatchLosses = self.__MatchLosses + 1
+        if other.getId() not in self.__PlayedAgainst:
+            self.__PlayedAgainst.append(other.getId())
 
     def removeWin(self, other: "Player") -> None:
-        self.mMatchWins = self.mMatchWins - 1
-        if other.mUuid in self.mPlayedAgainst:
-            self.mPlayedAgainst.remove(other.mUuid)
+        self.__MatchWins = self.__MatchWins - 1
+        if other.getId() in self.__PlayedAgainst:
+            self.__PlayedAgainst.remove(other.getId())
 
     def removeDraw(self, other: "Player") -> None:
-        self.mMatchDraws = self.mMatchDraws - 1
-        if other.mUuid in self.mPlayedAgainst:
-            self.mPlayedAgainst.remove(other.mUuid)
+        self.__MatchDraws = self.__MatchDraws - 1
+        if other.getId() in self.__PlayedAgainst:
+            self.__PlayedAgainst.remove(other.getId())
 
     def removeLoss(self, other: "Player") -> None:
-        self.mMatchLosses = self.mMatchLosses - 1
-        if other.mUuid in self.mPlayedAgainst:
-            self.mPlayedAgainst.remove(other.mUuid)
+        self.__MatchLosses = self.__MatchLosses - 1
+        if other.getId() in self.__PlayedAgainst:
+            self.__PlayedAgainst.remove(other.getId())
 
     # Getters
 
     def getPoints(self) -> int:
-        return (self.mMatchWins * 3) + self.mMatchDraws
+        return (self.__MatchWins * 3) + self.__MatchDraws
 
     def canPairAgainst(self, other: "Player") -> None:
-        return (self.mUuid != other.mUuid) and (
-            other.mUuid not in self.mPlayedAgainst
+        return (self.__Uuid != other.getId()) and (
+            other.getId() not in self.__PlayedAgainst
         )
 
     def isBye(self) -> bool:
-        return self.mIsBye
+        return self.__IsBye
 
     def getName(self) -> str:
-        return self.mName
+        return self.__Name
 
     def getStandingsString(self) -> str:
         return "{} [{}-{}-{}]".format(
-            self.mName, self.mMatchWins, self.mMatchLosses, self.mMatchDraws
+            self.__Name,
+            self.__MatchWins,
+            self.__MatchLosses,
+            self.__MatchDraws,
         )
 
     def __str__(self) -> str:
@@ -76,10 +79,10 @@ class Player:
         return self.__str__()
 
     def setName(self, name: str) -> None:
-        self.mName = name
+        self.__Name = name
 
     def getId(self) -> int:
-        return self.mUuid
+        return self.__Uuid
 
     # Rich comparison methods
 
@@ -97,7 +100,7 @@ class Player:
 
     def __eq__(self, other: "Player") -> bool:
         # Old overrided equals() compared team and name
-        return self.mUuid == other.mUuid
+        return self.__Uuid == other.getId()
 
     def __ne__(self, other: "Player") -> bool:
-        return self.mUuid != other.mUuid
+        return self.__Uuid != other.getId()

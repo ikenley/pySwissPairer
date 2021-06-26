@@ -39,6 +39,8 @@ class Tournament:
         return newRound
 
     def pairRound(self, printGraphviz: bool = False) -> List[Pairing]:
+        if len(self.__Rounds) == self.__MaxRounds:
+            return None
         roundToPair: Round = self.__Rounds[len(self.__Rounds) - 1]
         if len(self.__Rounds) <= 1:
             roundToPair.addPairings(

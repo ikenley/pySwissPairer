@@ -1,11 +1,10 @@
 from typing import List
-import json
+import jsonpickle
 
 from algorithm.Player import Player
 from algorithm.Round import Round
 from algorithm.SwissPairings import SwissPairings
 from algorithm.Pairing import Pairing
-from algorithm.pySwissJsonEncoder import pySwissJsonEncoder
 
 
 class Tournament:
@@ -16,7 +15,7 @@ class Tournament:
         self.__Players: List[Player] = []
 
     def __str__(self) -> str:
-        return json.dumps(self, cls=pySwissJsonEncoder, indent=2)
+        return jsonpickle.encode(self, indent=2)
 
     def __repr__(self) -> str:
         return self.__str__()

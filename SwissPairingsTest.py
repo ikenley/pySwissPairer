@@ -59,8 +59,8 @@ if __name__ == "__main__":
 
     for j in range(1):
 
-        maxRounds: int = 12
-        maxPlayers: int = 32
+        maxRounds: int = 3
+        maxPlayers: int = 8
 
         tourney: Tournament = Tournament()
         tourney.setName("Test {}".format(j))
@@ -105,8 +105,12 @@ if __name__ == "__main__":
 
             print("\n======================================================\n")
 
-        # print(tourney)
+        json_file = open("tourney_json.txt", "wt")
+        json_file.write(str(tourney))
+        json_file.close()
+
         if printGraphviz:
             gvFile = open("gv.txt", "a")  # append mode
             gvFile.write("}")
             gvFile.close()
+

@@ -1,9 +1,8 @@
 from typing import List
-import json
+import jsonpickle
 
 from algorithm.Player import Player
 from algorithm.Pairing import Pairing
-from algorithm.pySwissJsonEncoder import pySwissJsonEncoder
 
 
 class PairingTreeNode:
@@ -77,7 +76,7 @@ class PairingTreeNode:
         return "_{}".format(roundNum)
 
     def __str__(self) -> str:
-        return json.dumps(self.__dict__, cls=pySwissJsonEncoder, indent=2)
+        return jsonpickle.encode(self, indent=2)
 
     def __repr__(self) -> str:
         return self.__str__()

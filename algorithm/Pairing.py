@@ -1,8 +1,8 @@
 import sys
-import json
+
+import jsonpickle
 
 from algorithm.Player import Player
-from algorithm.pySwissJsonEncoder import pySwissJsonEncoder
 
 
 class Pairing:
@@ -36,7 +36,7 @@ class Pairing:
         )
 
     def __str__(self) -> str:
-        return json.dumps(self.__dict__, cls=pySwissJsonEncoder, indent=2)
+        return jsonpickle.encode(self, indent=2)
 
     def __repr__(self) -> str:
         return self.__str__()

@@ -1,8 +1,7 @@
 import uuid
 from typing import List
-import json
 
-from algorithm.pySwissJsonEncoder import pySwissJsonEncoder
+import jsonpickle
 
 
 class Player:
@@ -73,7 +72,7 @@ class Player:
         )
 
     def __str__(self) -> str:
-        return json.dumps(self.__dict__, cls=pySwissJsonEncoder, indent=2)
+        return jsonpickle.encode(self, indent=2)
 
     def __repr__(self) -> str:
         return self.__str__()

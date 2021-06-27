@@ -36,6 +36,7 @@ A simple example can be found in `SwissPairingsTest.py`. Printing standings and 
 ## Shortcomings
 
 * Players cannot be added or removed once the tournament starts.
+* Tiebreaker metrics are not calculated (opponent match win percentage, game win percentage, etc.)
 
 ## Object Overview
 

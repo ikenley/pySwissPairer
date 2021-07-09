@@ -1,7 +1,7 @@
 from typing import List
 import jsonpickle
 
-from algorithm.Pairing import Pairing
+from api.algorithm.Pairing import Pairing
 
 
 class Round:

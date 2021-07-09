@@ -1,10 +1,10 @@
 import random
 from typing import List
 
-from algorithm.Tournament import Tournament
-from algorithm.Player import Player
-from algorithm.Round import Round
-from algorithm.Pairing import Pairing
+from api.algorithm.Tournament import Tournament
+from api.algorithm.Player import Player
+from api.algorithm.Round import Round
+from api.algorithm.Pairing import Pairing
 
 
 class SwissPairingsTest:
@@ -113,4 +113,3 @@ if __name__ == "__main__":
             gvFile = open("gv.txt", "a")  # append mode
             gvFile.write("}")
             gvFile.close()
-

@@ -1,10 +1,10 @@
 from typing import List
 import jsonpickle
 
-from algorithm.Player import Player
-from algorithm.Round import Round
-from algorithm.SwissPairings import SwissPairings
-from algorithm.Pairing import Pairing
+from api.algorithm.Player import Player
+from api.algorithm.Round import Round
+from api.algorithm.SwissPairings import SwissPairings
+from api.algorithm.Pairing import Pairing
 
 
 class Tournament:

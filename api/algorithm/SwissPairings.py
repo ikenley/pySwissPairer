@@ -1,9 +1,9 @@
 import random
 from typing import List
 
-from algorithm.Player import Player
-from algorithm.Pairing import Pairing
-from algorithm.PairingTreeNode import PairingTreeNode
+from api.algorithm.Player import Player
+from api.algorithm.Pairing import Pairing
+from api.algorithm.PairingTreeNode import PairingTreeNode
 
 
 class SwissPairings:

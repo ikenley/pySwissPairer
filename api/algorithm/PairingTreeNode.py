@@ -1,8 +1,8 @@
 from typing import List
 import jsonpickle
 
-from algorithm.Player import Player
-from algorithm.Pairing import Pairing
+from api.algorithm.Player import Player
+from api.algorithm.Pairing import Pairing
 
 
 class PairingTreeNode:

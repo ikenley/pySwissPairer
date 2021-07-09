@@ -2,7 +2,7 @@ import sys
 
 import jsonpickle
 
-from algorithm.Player import Player
+from api.algorithm.Player import Player
 
 
 class Pairing:

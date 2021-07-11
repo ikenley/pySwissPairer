@@ -32,7 +32,7 @@ def lambda_handler(event, context):
     </style>
     </head>
     <body>
-    <p>Hello World!</p>
+    <p>Swiss Pair. Coming Soon.</p>
     </body>
     </html>"""
 

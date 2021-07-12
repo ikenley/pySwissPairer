@@ -3,15 +3,15 @@ version: 0.2
 env:
   variables:
     PLACEHOLDER_ENV_VAR: "TODO"
-  # parameter-store:
-  #   DOCKER_USERNAME: /docker/username
-  #   DOCKER_PASSWORD: /docker/password
+  parameter-store:
+    DOCKER_USERNAME: /docker/username
+    DOCKER_PASSWORD: /docker/password
 
 phases:
-  # pre_build:
-  #   commands:
-  #     - echo Logging into DockerHub
-  #     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  pre_build:
+    commands:
+      - echo Logging into DockerHub
+      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   build:
     commands:
       - echo Build started on `date`

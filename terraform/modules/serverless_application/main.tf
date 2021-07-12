@@ -282,7 +282,7 @@ resource "aws_lb_target_group" "lambda_api" {
   vpc_id                        = var.vpc_id
   #deregistration_delay          = 300
   #slow_start                    = 0
-  #load_balancing_algorithm_type = "round_robin"
+  load_balancing_algorithm_type = "round_robin"
   stickiness {
     type            = "lb_cookie"
     cookie_duration = 86400
@@ -516,7 +516,7 @@ resource "aws_codebuild_project" "this" {
     compute_type                = "BUILD_GENERAL1_SMALL"
     image                       = "aws/codebuild/standard:5.0"
     image_pull_credentials_type = "CODEBUILD"
-    #privileged_mode             = true
+    privileged_mode             = true
 
     environment_variable {
       name  = "ENV"

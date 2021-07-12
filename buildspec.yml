@@ -15,10 +15,6 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - IMAGE_TAG=$BRANCH_NAME-$CODEBUILD_BUILD_NUMBER
-      - echo "IMAGE_TAG=$IMAGE_TAG"
-      - ASPNETCORE_ENVIRONMENT=$ENV
-      - echo "ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT"
       - echo "Deploying API backend Lambda function..."
       - cd api
       - sam build --use-container

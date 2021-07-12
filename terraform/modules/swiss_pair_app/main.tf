@@ -29,7 +29,7 @@ module "serverless_application" {
   source_branch_name           = var.source_branch_name
   codestar_connection_arn      = var.codestar_connection_arn
 
-  lambda_api_function_arn = module.lambda_api.lambda_function_arn
+  lambda_api_function_arn = var.lambda_api_function_arn
 
   tags = var.tags
 }
@@ -90,29 +90,29 @@ module "serverless_application" {
 # }
 
 # ------------------------------------------------------------------------------
-# Revisit Prediction Lambda Function
+# Lambda API  Function
 # ------------------------------------------------------------------------------
 
-module "lambda_api" {
-  source = "terraform-aws-modules/lambda/aws"
+# module "lambda_api" {
+#   source = "terraform-aws-modules/lambda/aws"
 
-  function_name = "${var.namespace}-api"
-  description   = "API backend for serverless application"
-  handler       = "index.lambda_handler"
-  runtime       = "python3.8"
-  publish       = true
+#   function_name = "${var.namespace}-api"
+#   description   = "API backend for serverless application"
+#   handler       = "index.lambda_handler"
+#   runtime       = "python3.8"
+#   publish       = true
 
-  source_path = "${path.module}/hello_lambda"
+#   source_path = "${path.module}/hello_lambda"
 
-  environment_variables = {
-    Serverless             = "Terraform"
-    # USERS_TABLE_NAME       = module.dynamo_users.table_name
-    # PREDICTIONS_TABLE_NAME = module.dynamo_predictions.table_name
-    # SES_EMAIL_ADDRESS      = var.ses_email_address
-  }
+#   environment_variables = {
+#     Serverless             = "Terraform"
+#     # USERS_TABLE_NAME       = module.dynamo_users.table_name
+#     # PREDICTIONS_TABLE_NAME = module.dynamo_predictions.table_name
+#     # SES_EMAIL_ADDRESS      = var.ses_email_address
+#   }
 
-  tags = var.tags
-}
+#   tags = var.tags
+# }
 
 # resource "aws_iam_policy" "revisit_prediction_function" {
 #   name = "${var.name}-revisit-prediction-function-policy"

@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "swiss-pair-app-api"
+s3_bucket = "924586450630-artifacts"
+s3_prefix = "swiss-pair-app-api"
+region = "us-east-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"

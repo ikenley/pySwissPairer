@@ -71,6 +71,8 @@ module "swiss_pair_app" {
   source_branch_name           = "main"
   codestar_connection_arn      = "arn:aws:codestar-connections:us-east-1:924586450630:connection/73e9e607-3dc4-4a4d-9f81-a82c0030de6d"
 
+  lambda_api_function_arn = "arn:aws:lambda:us-east-1:924586450630:function:swiss-pair-app-api"
+
   tags = {
     Environment = "dev"
   }

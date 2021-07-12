@@ -104,3 +104,16 @@ pip install -r requirements.txt
 # Run local test
 python SwissPairingsTest.py
 ```
+
+---
+
+## Deploying
+
+- This app uses the SAM CLI to package the application as a Lambda function
+
+```
+sam build --use-container
+sam deploy --profile terraform-dev --region us-east-1 --stack-name swiss-pair-app-api --s3-bucket 924586450630-artifacts --s3-prefix swiss-pair-app-api
+```
+
+- [Git bash will not resolve “sam” command](https://stackoverflow.com/questions/62986561/git-bash-will-not-resolve-sam-command)

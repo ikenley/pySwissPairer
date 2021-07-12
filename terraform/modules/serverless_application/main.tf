@@ -278,7 +278,6 @@ resource "aws_route53_record" "ssl_validation" {
 #------------------------------------------------------------------------------
 resource "aws_lb_target_group" "lambda_api" {
   name                          = "${var.name}-lambda-api"
-  #port                          = 443
   protocol                      = "HTTPS"
   vpc_id                        = var.vpc_id
   #deregistration_delay          = 300
@@ -301,7 +300,7 @@ resource "aws_lb_target_group" "lambda_api" {
   # }
   target_type = "lambda"
   tags = {
-    Name = "${var.name}-https-443"
+    Name = "${var.name}-lambda-api"
   }
   lifecycle {
     create_before_destroy = true

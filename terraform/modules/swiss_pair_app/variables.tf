@@ -180,3 +180,9 @@ variable "codestar_connection_arn" {}
 # # SES
 # variable "ses_email_address" {}
 # variable "ses_email_arn" {}
+
+# Lambda function
+
+variable "lambda_api_function_arn" {
+  description = "Function ARN of API lambda function"
+}

@@ -157,6 +157,7 @@ variable "code_pipeline_s3_bucket_name" {}
 variable "source_full_repository_id" {}
 variable "source_branch_name" {}
 variable "codestar_connection_arn" {}
+variable "s3_artifacts_name" {}
 
 # Configuration parameters
 

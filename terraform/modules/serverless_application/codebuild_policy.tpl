@@ -2,28 +2,6 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "AllowECR",
-            "Effect": "Allow",
-            "Action": [
-                "ecr:GetDownloadUrlForLayer",
-                "ecr:UploadLayerPart",
-                "ecr:PutImage",
-                "ecr:BatchGetImage",
-                "ecr:CompleteLayerUpload",
-                "ecr:InitiateLayerUpload",
-                "ecr:BatchCheckLayerAvailability"
-            ],
-            "Resource": ${ecr_arns}
-        },
-        {
-            "Sid": "AllowECRAuthorizationToken",
-            "Effect": "Allow",
-            "Action": [
-                "ecr:GetAuthorizationToken"
-            ],
-            "Resource": "*"
-        },
-        {
             "Sid": "AllowS3",
             "Effect": "Allow",
             "Action": [

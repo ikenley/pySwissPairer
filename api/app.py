@@ -37,11 +37,11 @@ def lambda_handler(event, context):
 
     response['body'] = """<html>
     <head>
-    <title>Hello World!</title>
+    <title>Swiss Pair</title>
     <style>
     html, body {
     margin: 0; padding: 0;
-    font-family: arial; font-weight: 700; font-size: 3em;
+    font-family: arial; font-weight: 700; font-size: 2em;
     text-align: center;
     }
     </style>

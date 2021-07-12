@@ -28,6 +28,7 @@ module "serverless_application" {
   source_full_repository_id    = var.source_full_repository_id
   source_branch_name           = var.source_branch_name
   codestar_connection_arn      = var.codestar_connection_arn
+  s3_artifacts_name            = var.s3_artifacts_name
 
   lambda_api_function_arn = var.lambda_api_function_arn
 

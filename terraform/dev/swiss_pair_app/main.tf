@@ -70,6 +70,7 @@ module "swiss_pair_app" {
   source_full_repository_id    = "ikenley/pySwissPairer"
   source_branch_name           = "main"
   codestar_connection_arn      = "arn:aws:codestar-connections:us-east-1:924586450630:connection/73e9e607-3dc4-4a4d-9f81-a82c0030de6d"
+  s3_artifacts_name            = data.terraform_remote_state.core.outputs.code_pipeline_s3_bucket_name
 
   lambda_api_function_arn = "arn:aws:lambda:us-east-1:924586450630:function:swiss-pair-app-api"
 

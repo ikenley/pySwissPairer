@@ -574,9 +574,10 @@ EOF
 resource "aws_iam_role_policy" "codebuild_policy" {
   role = aws_iam_role.codebuild_role.name
 
-  policy = templatefile("${path.module}/codebuild_policy.tpl", {
+  policy = templatefile("${path.module}/codebuild_policy.json", {
     account_id                   = local.account_id
     code_pipeline_s3_bucket_name = var.code_pipeline_s3_bucket_name
+    s3_artifacts_name            = var.s3_artifacts_name
     codebuild_project_name       = local.codebuild_project_name
     name                         = var.name
   })

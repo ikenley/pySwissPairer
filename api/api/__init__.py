@@ -1,7 +1,7 @@
 import logging
 from logging.handlers import RotatingFileHandler
 import os
-from flask import Flask, request, current_app
+from flask import Flask, jsonify
 from config import Config
 
 

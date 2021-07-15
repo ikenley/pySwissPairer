@@ -19,36 +19,39 @@ def index():
 
 
 def lambda_handler(event, context):
-    '''Demonstrates a simple HTTP endpoint using API Gateway. You have full
-    access to the request and response payload, including headers and
-    status code.
+    return awsgi.response(app, event, context, base64_content_types={"image/png"})
 
-    '''
-    print("Received event: " + json.dumps(event, indent=2))
+# def lambda_handler(event, context):
+#     '''Demonstrates a simple HTTP endpoint using API Gateway. You have full
+#     access to the request and response payload, including headers and
+#     status code.
 
-    response = {
-        "statusCode": 200,
-        "statusDescription": "200 OK",
-        "isBase64Encoded": False,
-        "headers": {
-            "Content-Type": "text/html; charset=utf-8"
-        }
-    }
+#     '''
+#     print("Received event: " + json.dumps(event, indent=2))
 
-    response['body'] = """<html>
-    <head>
-    <title>Swiss Pair</title>
-    <style>
-    html, body {
-    margin: 0; padding: 0;
-    font-family: arial; font-weight: 700; font-size: 2em;
-    text-align: center;
-    }
-    </style>
-    </head>
-    <body>
-    <p>Swiss Pair. Coming Soon.</p>
-    </body>
-    </html>"""
+#     response = {
+#         "statusCode": 200,
+#         "statusDescription": "200 OK",
+#         "isBase64Encoded": False,
+#         "headers": {
+#             "Content-Type": "text/html; charset=utf-8"
+#         }
+#     }
 
-    return response
+#     response['body'] = """<html>
+#     <head>
+#     <title>Swiss Pair</title>
+#     <style>
+#     html, body {
+#     margin: 0; padding: 0;
+#     font-family: arial; font-weight: 700; font-size: 2em;
+#     text-align: center;
+#     }
+#     </style>
+#     </head>
+#     <body>
+#     <p>Swiss Pair. Coming Soon.</p>
+#     </body>
+#     </html>"""
+
+#     return response

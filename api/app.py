@@ -6,8 +6,7 @@ app = create_app()
 
 
 def lambda_handler(event, context):
-    (httpMethod, path, headers) = event
-    print(f'{httpMethod} {path}')
-    print(headers)
+    print(f'{event.httpMethod} {event.path}')
+    print(event.headers)
 
     return awsgi.response(app, event, context, base64_content_types={"image/png"})

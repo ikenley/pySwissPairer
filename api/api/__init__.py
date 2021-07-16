@@ -19,4 +19,6 @@ def create_app(config_class=Config):
     # Log to stdout
     logging.basicConfig(level=logging.INFO)
 
+    app.logger.info('Created app')
+
     return app

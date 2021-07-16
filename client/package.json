@@ -1,0 +1,81 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.8.1",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^12.20.4",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.1",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "chart.js": "^2.9.4",
+    "classnames": "^2.3.0",
+    "js-cookie": "^2.2.1",
+    "lodash": "^4.17.21",
+    "node-sass": "^5.0.0",
+    "numeral": "^2.0.6",
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.5.2",
+    "react-chartjs-2": "^2.11.1",
+    "react-dom": "^17.0.1",
+    "react-google-login": "^5.2.2",
+    "react-intersection-observer": "^8.31.0",
+    "react-joyride": "^2.3.0",
+    "react-loading-skeleton": "^2.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-table": "^7.6.3",
+    "react-virtualized-auto-sizer": "^1.0.5",
+    "react-window": "^1.8.6",
+    "typescript": "^4.2.3",
+    "uuid": "^8.3.2",
+    "web-vitals": "^1.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:5000",
+  "sideEffects": [
+    "*.css"
+  ],
+  "devDependencies": {
+    "@types/js-cookie": "^2.2.6",
+    "@types/lodash": "^4.14.168",
+    "@types/numeral": "^2.0.1",
+    "@types/react-joyride": "^2.0.5",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/react-table": "^7.0.29",
+    "@types/react-virtualized-auto-sizer": "^1.0.0",
+    "@types/react-window": "^1.8.2",
+    "@types/styled-components": "^5.1.9",
+    "@types/uuid": "^8.3.0",
+    "http-proxy-middleware": "^2.0.0",
+    "prettier": "2.2.1"
+  }
+}

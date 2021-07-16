@@ -6,6 +6,7 @@ app = create_app()
 
 
 def lambda_handler(event, context):
+    print(event)
     print(f'{event.httpMethod} {event.path}')
     print(event.headers)
 

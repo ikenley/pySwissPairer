@@ -82,7 +82,7 @@ variable "alb_listener_rule_host" {
 
 variable "alb_listener_rule_path_pattern" {
   description = "Path pattern for ALB listener rule e.g. /my-app"
-  default     = "/"
+  default     = "*"
 }
 
 variable "health_check_path" {

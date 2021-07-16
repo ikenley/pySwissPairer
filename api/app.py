@@ -6,8 +6,19 @@ app = create_app()
 
 
 def lambda_handler(event, context):
-    print(event)
-    print(f'{event["httpMethod"]} {event["path"]}')
-    print(event["headers"])
+    headers = event["headers"]
+    requestData = {
+        "httpMethod": event["httpMethod"],
+        "path": event["path"],
+        "queryStringParameters": event["queryStringParameters"],
+        "headers": {
+            "host": headers["host"],
+            "user-agent": headers["user-agent"],
+            "x-amzn-trace-id": headers["x-amzn-trace-id"],
+            "x-forwarded-for": headers["x-forwarded-for"],
+            "x-forwarded-proto": headers["x-forwarded-proto"]
+        }
+    }
+    print(requestData)
 
     return awsgi.response(app, event, context, base64_content_types={"image/png"})

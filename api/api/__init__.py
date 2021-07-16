@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from logging.config import dictConfig
+import logging
 from config import Config
 
 
@@ -17,20 +17,6 @@ def create_app(config_class=Config):
     app.register_blueprint(api_bp)
 
     # Log to stdout
-    dictConfig({
-        'version': 1,
-        'formatters': {'default': {
-            'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
-        }},
-        'handlers': {'wsgi': {
-            'class': 'logging.StreamHandler',
-            'stream': 'ext://sys.stdout',
-            'formatter': 'default'
-        }},
-        'root': {
-            'level': 'INFO',
-            'handlers': ['wsgi']
-        }
-    })
+    logging.basicConfig(level=logging.INFO)
 
     return app

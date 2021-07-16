@@ -6,4 +6,6 @@ app = create_app()
 
 
 def lambda_handler(event, context):
+    print(event)
+
     return awsgi.response(app, event, context, base64_content_types={"image/png"})

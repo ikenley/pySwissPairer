@@ -1,6 +1,25 @@
 from flask import Flask, jsonify
 import logging
+from logging.config import dictConfig
 from config import Config
+
+# Log to stdout
+# https://stackoverflow.com/questions/56905756/how-to-make-flask-log-to-stdout-instead-of-stderr
+dictConfig({
+    'version': 1,
+    'formatters': {'default': {
+        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+    }},
+    'handlers': {'wsgi': {
+        'class': 'logging.StreamHandler',
+        'stream': 'ext://sys.stdout',
+        'formatter': 'default'
+    }},
+    'root': {
+        'level': 'INFO',
+        'handlers': ['wsgi']
+    }
+})
 
 
 def create_app(config_class=Config):
